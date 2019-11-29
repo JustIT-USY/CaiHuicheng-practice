@@ -1,0 +1,5 @@
+﻿  main.cpp
+f:\c++\opencv\相机标定\相机标定\main.cpp(23): warning C4129: “c”: 不可识别的字符转义序列
+f:\c++\opencv\相机标定\相机标定\main.cpp(23): warning C4129: “O”: 不可识别的字符转义序列
+f:\c++\opencv\相机标定\相机标定\main.cpp(23): warning C4129: “: 不可识别的字符转义序列
+  相机标定.vcxproj -> F:\c++\OpenCV\相机标定\x64\Debug\相机标定.exe

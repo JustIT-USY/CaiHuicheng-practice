@@ -1,0 +1,18 @@
+﻿  PhotoAndVideo.cpp
+f:\c++\opencv\拍照录像\拍照录像\photoandvideo.cpp(81): warning C4477: “sprintf_s”: 格式字符串“%d”需要类型“int”的参数，但可变参数 1 拥有了类型“__int64”
+  f:\c++\opencv\拍照录像\拍照录像\photoandvideo.cpp(81): note: 请考虑在格式字符串中使用“%lld”
+  f:\c++\opencv\拍照录像\拍照录像\photoandvideo.cpp(81): note: 请考虑在格式字符串中使用“%Id”
+  f:\c++\opencv\拍照录像\拍照录像\photoandvideo.cpp(81): note: 请考虑在格式字符串中使用“%I64d”
+f:\c++\opencv\拍照录像\拍照录像\photoandvideo.cpp(83): warning C4477: “sprintf_s”: 格式字符串“%d”需要类型“int”的参数，但可变参数 1 拥有了类型“__int64”
+  f:\c++\opencv\拍照录像\拍照录像\photoandvideo.cpp(83): note: 请考虑在格式字符串中使用“%lld”
+  f:\c++\opencv\拍照录像\拍照录像\photoandvideo.cpp(83): note: 请考虑在格式字符串中使用“%Id”
+  f:\c++\opencv\拍照录像\拍照录像\photoandvideo.cpp(83): note: 请考虑在格式字符串中使用“%I64d”
+f:\c++\opencv\拍照录像\拍照录像\photoandvideo.cpp(85): warning C4477: “sprintf_s”: 格式字符串“%d”需要类型“int”的参数，但可变参数 1 拥有了类型“__int64”
+  f:\c++\opencv\拍照录像\拍照录像\photoandvideo.cpp(85): note: 请考虑在格式字符串中使用“%lld”
+  f:\c++\opencv\拍照录像\拍照录像\photoandvideo.cpp(85): note: 请考虑在格式字符串中使用“%Id”
+  f:\c++\opencv\拍照录像\拍照录像\photoandvideo.cpp(85): note: 请考虑在格式字符串中使用“%I64d”
+f:\c++\opencv\拍照录像\拍照录像\photoandvideo.cpp(87): warning C4477: “sprintf_s”: 格式字符串“%d”需要类型“int”的参数，但可变参数 1 拥有了类型“__int64”
+  f:\c++\opencv\拍照录像\拍照录像\photoandvideo.cpp(87): note: 请考虑在格式字符串中使用“%lld”
+  f:\c++\opencv\拍照录像\拍照录像\photoandvideo.cpp(87): note: 请考虑在格式字符串中使用“%Id”
+  f:\c++\opencv\拍照录像\拍照录像\photoandvideo.cpp(87): note: 请考虑在格式字符串中使用“%I64d”
+  拍照录像.vcxproj -> F:\c++\OpenCV\拍照录像\x64\Debug\拍照录像.exe

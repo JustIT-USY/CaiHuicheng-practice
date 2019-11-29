@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.572
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "拍照录像", "拍照录像\拍照录像.vcxproj", "{A502520E-5F90-4789-A1AC-3D5E68C7ABCB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A502520E-5F90-4789-A1AC-3D5E68C7ABCB}.Debug|x64.ActiveCfg = Debug|x64
+		{A502520E-5F90-4789-A1AC-3D5E68C7ABCB}.Debug|x64.Build.0 = Debug|x64
+		{A502520E-5F90-4789-A1AC-3D5E68C7ABCB}.Debug|x86.ActiveCfg = Debug|Win32
+		{A502520E-5F90-4789-A1AC-3D5E68C7ABCB}.Debug|x86.Build.0 = Debug|Win32
+		{A502520E-5F90-4789-A1AC-3D5E68C7ABCB}.Release|x64.ActiveCfg = Release|x64
+		{A502520E-5F90-4789-A1AC-3D5E68C7ABCB}.Release|x64.Build.0 = Release|x64
+		{A502520E-5F90-4789-A1AC-3D5E68C7ABCB}.Release|x86.ActiveCfg = Release|Win32
+		{A502520E-5F90-4789-A1AC-3D5E68C7ABCB}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {20F05350-C432-4C8F-ACD8-F106073063E1}
+	EndGlobalSection
+EndGlobal
