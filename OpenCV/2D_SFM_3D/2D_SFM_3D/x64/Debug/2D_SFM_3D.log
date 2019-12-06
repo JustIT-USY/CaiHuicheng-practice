@@ -1,0 +1,13 @@
+﻿  main.cpp
+i:\justit-usy\caihuicheng-practice\opencv\2d_sfm_3d\2d_sfm_3d\main.cpp(46): warning C4244: “参数”: 从“_Tp”转换到“int”，可能丢失数据
+          with
+          [
+              _Tp=float
+          ]
+i:\justit-usy\caihuicheng-practice\opencv\2d_sfm_3d\2d_sfm_3d\main.cpp(302): warning C4267: “=”: 从“size_t”转换到“_Ty”，可能丢失数据
+          with
+          [
+              _Ty=int
+          ]
+i:\justit-usy\caihuicheng-practice\opencv\2d_sfm_3d\2d_sfm_3d\main.cpp(381): warning C4326: “main”的返回类型应为“int”而非“void”
+  2D_SFM_3D.vcxproj -> I:\JustIT-USY\CaiHuicheng-practice\OpenCV\2D_SFM_3D\x64\Debug\2D_SFM_3D.exe

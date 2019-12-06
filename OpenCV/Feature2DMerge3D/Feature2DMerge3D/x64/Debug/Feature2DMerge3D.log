@@ -1,0 +1,5 @@
+﻿  extra.cpp
+  pose_estimation_2d2d2v.cpp
+i:\justit-usy\caihuicheng-practice\opencv\feature2dmerge3d\feature2dmerge3d\pose_estimation_2d2d2v.cpp : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+  正在生成代码...
+LINK : fatal error LNK1104: 无法打开文件“opencv_nonfree342d.lib”

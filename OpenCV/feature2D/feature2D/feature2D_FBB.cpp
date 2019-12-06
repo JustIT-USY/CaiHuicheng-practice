@@ -1,60 +1,93 @@
-/**
-* @概述：采用FAST算子检测特征点，采用BRIEF算子对特征点进行特征提取，并使用BruteForce匹配法进行特征点的匹配
-* @类和函数：FastFeatureDetector + BriefDescriptorExtractor + BruteForceMatcher
-*
-*/
-
-#include <stdio.h>
 #include <iostream>
-#include <opencv2/imgproc/imgproc.hpp> 
+#include <windows.h>
 #include <opencv2/core/core.hpp>
-#include <opencv2/nonfree/features2d.hpp>	//SurfFeatureDetector实际在该头文件中
-#include <opencv2/legacy/legacy.hpp>	//BruteForceMatcher实际在该头文件中
-#include <opencv2/features2d/features2d.hpp>	//FlannBasedMatcher实际在该头文件中
+#include <opencv2/features2d/features2d.hpp>
 #include <opencv2/highgui/highgui.hpp>
-using namespace cv;
+#include <opencv2/imgproc/imgproc.hpp> 
+
 using namespace std;
+using namespace cv;
 
-
-
-int main(int argc, char** argv)
+int main ( int argc, char** argv )
 {
-	Mat src_1 = imread("color_1.jpg");
-	Mat src_2 = imread("color_2.jpg");
-	if (!src_1.data || !src_2.data)
-	{
-		cout << " --(!) Error reading images " << endl;
-		return -1;
-	}
+    /*if ( argc != 3 )
+    {
+        cout<<"usage: feature_extraction img1 img2"<<endl;
+        return 1;
+    }*/
+    //读取图像
+	//Mat img_1 = imread("1.png");
+	//Mat img_2 = imread("2.png");
+	Mat img_color1 = imread("1.png");//图片路径与.cpp文件放一起，或者绝对路径
+	Mat img_color2 = imread("2.png");//图片路径与.cpp文件放一起，或者绝对路径
+	Mat img_1;
+	Mat img_2;
+	cvtColor(img_color1, img_1, CV_BGR2GRAY);
+	cvtColor(img_color2, img_2, CV_BGR2GRAY);
+	imshow("Grey1", img_1);
+	imshow("Grey2", img_2);
 
-	//-- Step 1: 使用FAST算法检测特征点
-	Ptr<FastFeatureDetector> fast = FastFeatureDetector::create(20);
-	vector<KeyPoint> keypoints_1, keypoints_2;
-	fast->detect(src_1, keypoints_1);	//FAST(src_1, keypoints_1, 20); 
-	fast->detect(src_2, keypoints_2);	//FAST(src_2, keypoints_2, 20); 
-	cout << "img1--number of keypoints: " << keypoints_1.size() << endl;
-	cout << "img2--number of keypoints: " << keypoints_2.size() << endl;
+    //初始化
+    std::vector<KeyPoint> keypoints_1, keypoints_2;
+    Mat descriptors_1, descriptors_2;
+    Ptr<FeatureDetector> detector = ORB::create();
+    Ptr<DescriptorExtractor> descriptor = ORB::create();
+    Ptr<DescriptorMatcher> matcher  = DescriptorMatcher::create ( "BruteForce-Hamming" );
 
-	//-- Step 2: 使用BRIEF算法提取特征（计算特征向量）
-	BriefDescriptorExtractor extractor;
-	Mat descriptors_1, descriptors_2;
-	extractor.compute(src_1, keypoints_1, descriptors_1);
-	extractor.compute(src_2, keypoints_2, descriptors_2);
+    //检测 Oriented FAST 角点位置
+    detector->detect ( img_1,keypoints_1 );
+    detector->detect ( img_2,keypoints_2 );
 
-	//-- Step 3: 使用BruteForce算法法进行暴力匹配
-	BruteForceMatcher< L2<float> > matcher;	//FlannBasedMatcher matcher;
-	vector< DMatch > matches;
-	matcher.match(descriptors_1, descriptors_2, matches);
-	cout << "number of matches: " << matches.size() << endl;
+    //根据角点位置计算 BRIEF 描述子
+    descriptor->compute ( img_1, keypoints_1, descriptors_1 );
+    descriptor->compute ( img_2, keypoints_2, descriptors_2 );
 
-	//-- 显示匹配结果
-	Mat matchImg;
-	drawMatches(src_1, keypoints_1, src_2, keypoints_2, matches, matchImg,
-		Scalar::all(-1), Scalar::all(-1), vector<char>(), DrawMatchesFlags::NOT_DRAW_SINGLE_POINTS);
-	imshow("matching result", matchImg);
-	imwrite("match_result.png", matchImg);
-	waitKey(0);
+    Mat outimg1;
+    drawKeypoints( img_1, keypoints_1, outimg1, Scalar::all(-1), DrawMatchesFlags::DEFAULT );
+    imshow("ORB特征点",outimg1);
 
-	return 0;
+    //对两幅图像中的BRIEF描述子进行匹配，使用 Hamming 距离
+    vector<DMatch> matches;
+    matcher->match ( descriptors_1, descriptors_2, matches );
+
+    //匹配点对筛选
+    double min_dist=10000, max_dist=0;
+
+    //找出所有匹配之间的最小距离和最大距离, 即是最相似的和最不相似的两组点之间的距离
+    for ( int i = 0; i < descriptors_1.rows; i++ )
+    {
+        double dist = matches[i].distance;
+        if ( dist < min_dist ) min_dist = dist;
+        if ( dist > max_dist ) max_dist = dist;
+    }
+    
+    // 仅供娱乐的写法
+    min_dist = min_element( matches.begin(), matches.end(), [](const DMatch& m1, const DMatch& m2) {return m1.distance<m2.distance;} )->distance;
+    max_dist = max_element( matches.begin(), matches.end(), [](const DMatch& m1, const DMatch& m2) {return m1.distance<m2.distance;} )->distance;
+
+    printf ( "-- Max dist : %f \n", max_dist );
+    printf ( "-- Min dist : %f \n", min_dist );
+
+    //当描述子之间的距离大于两倍的最小距离时,即认为匹配有误.但有时候最小距离会非常小,设置一个经验值30作为下限.
+    std::vector< DMatch > good_matches;
+    for ( int i = 0; i < descriptors_1.rows; i++ )
+    {
+        if ( matches[i].distance <= max ( 2*min_dist, 30.0 ) )
+        {
+            good_matches.push_back ( matches[i] );
+        }
+    }
+
+    //绘制匹配结果
+    Mat img_match;
+    Mat img_goodmatch;
+    drawMatches ( img_1, keypoints_1, img_2, keypoints_2, matches, img_match );
+    drawMatches ( img_1, keypoints_1, img_2, keypoints_2, good_matches, img_goodmatch );
+    imshow ( "所有匹配点对", img_match );
+    imshow ( "优化后匹配点对", img_goodmatch );
+    waitKey(0);
+
+    return 0;
 }
+
 
